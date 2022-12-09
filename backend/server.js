@@ -1,7 +1,23 @@
-const app = require("./app")
+const express = require('express')
+const app = express ()
 require("colors")
+require ("dotenv").config({path: "./backend/config.env"})
 
-app.listen(5000, () => {
-  console.log("Server Started On Port 5000".cyan.bold.underline)
+const [PORT, isInProduction] = require("./scripts/getProdDetails")(8000)
+
+console.log({PORT, isInProduction})
+
+app.get("/home", (req, res) => { 
+  res.status(200).send("Hello there") 
 })
 
+
+app.listen(PORT, () => {
+  console.log("Server Started on Port 8000".cyan.bold.underline)
+})
+
+
+
+
+
+module.exports = app;
