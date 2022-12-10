@@ -10,4 +10,13 @@ describe("Test the root path", () => {
         done();
       });
   });
+
+  test("It should response the GET method", done => {
+    request(app)
+      .get("/home")
+      .then(response => {
+        expect(response).toBe("Hello there");
+        done();
+      });
+  });
 })
