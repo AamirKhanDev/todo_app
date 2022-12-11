@@ -7,7 +7,7 @@ const connectDB = require("./scripts/connectDB")
 const getProdDetails = require("./scripts/getProdDetails")
 const [PORT] = getProdDetails(5000)
 
-
+app.use(express.json())
 
 app.use("/api/todos", require("./routes/todosRoute"))
 app.use("/api/users", require("./routes/usersRoute"))
