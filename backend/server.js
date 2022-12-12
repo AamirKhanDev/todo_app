@@ -19,6 +19,11 @@ app.use("/api/users", require("./routes/usersRoute"))
 app.listen(PORT, () => {
   console.log("Server Started".cyan.bold.underline)
   connectDB()
+
+  const mongoose = require("mongoose")
+  const Cat = mongoose.model('Cat,', {name: String});
+  const kitty = new Cat({name: 'Zildjian'});
+  kitty.save().then(()=> console.log ('meow'))
 })
 
 
