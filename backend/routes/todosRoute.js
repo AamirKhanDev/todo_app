@@ -1,13 +1,14 @@
 const express = require("express")
 const router = express.Router()
+const delay = require("../middewares/delay")
 
-const todos = [
+let todos = [
   {id: 1, text: "first todo", isComplete : true},
   {id: 2, text: "second todo", isComplete : false},
   {id: 3, text: "third todo",  isComplete : true},
 ]
 
-router.get("/me", (req, res) => { 
+router.get("/me", delay, (req, res) => { 
   res.status(200).send(todos)
 })
 
@@ -28,7 +29,13 @@ router.put("/:id", (req,res) => {
 router.delete("/:id", (req, res) => {
   const id = req.params.id
   const index = todos.findIndex(t => t.id === parseInt(id))
+  todos.splice(index, 1)
   res.send("Hi! You tried to delete something")
+})
+
+router.delete("/me", (req, res) => {
+  todos = []
+  res.send(todos)
 })
 
 
