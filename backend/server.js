@@ -5,12 +5,13 @@ require("colors")
 require ("dotenv").config({path: "./backend/config.env"})
 const connectDB = require("./scripts/connectDB")
 const getProdDetails = require("./scripts/getProdDetails")
-const [PORT] = getProdDetails(5000)
+const [PORT, isInProduction] = getProdDetails(5000)
 const delay = require("./middewares/delay")
 
 app.use(express.json())
 
-app.use(delay)
+app.use(delay(isInProduction ? 0 : 1))
+
 
 app.use("/api/todos", require("./routes/todosRoute"))
 app.use("/api/users", require("./routes/usersRoute"))
