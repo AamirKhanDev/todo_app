@@ -3,6 +3,9 @@ const User = require("../models/User")
 const router = express.Router()
 const {isEmail} = require("validator")
 const {genSaltSync, hashSync, compareSync} = require("bcryptjs")
+const verifyToken = require("../middewares/verifyToken")
+const createAuthResObj = require("../scripts/createAuthResObj")
+
 
 router.post("/register", async (req, res) => { 
     try {
@@ -15,7 +18,7 @@ router.post("/register", async (req, res) => {
       user.password = hashSync(user.password, genSaltSync(+process.env.SALT_ROUNDS));
       //saves user registered
       await user.save()
-      res.status(201).send(user)
+      res.status(201).send(createAuthResObject(user))
   }   catch ({message}) {  res.status(400).send({message})
   }
 
