@@ -2,7 +2,7 @@ const express = require("express")
 const User = require("../models/User")
 const router = express.Router()
 const {isEmail} = require("validator")
-const {genSaltSync, hashSync} = require("bcryptjs")
+const {genSaltSync, hashSync, compareSync} = require("bcryptjs")
 
 router.post("/register", async (req, res) => { 
     try {
@@ -10,6 +10,7 @@ router.post("/register", async (req, res) => {
       const count = await User.count({email: req.body.email})
       if (count) throw new Error ("Email is not unique!")
       const user = new User(req.body)
+      if (user.password.length < 5) throw new Error("Password is too short")
       //encrypt password then save
       user.password = hashSync(user.password, genSaltSync(+process.env.SALT_ROUNDS));
       //saves user registered
@@ -20,8 +21,16 @@ router.post("/register", async (req, res) => {
 
 })
 
-router.post("/login", (req, res) => { 
-  res.status(200).send()
+router.post("/login", async (req, res) => { 
+  try {
+    const user = User.findOne({email: req.body.email})
+    if (!user) throw new Error ("No user found")
+
+    const passwordIsValid = compareSync(password, user.password)
+
+    res.send(user)
+  } catch ({message}) {  res.status(404).send({message})
+  }
 })
 
 module.exports = router 
