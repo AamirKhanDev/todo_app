@@ -1,6 +1,5 @@
 const express = require("express")
 const router = express.Router()
-const delay = require("../middewares/delay")
 const verifyToken = require("../middewares/verifyToken")
 
 
@@ -12,20 +11,25 @@ router.get("/me", verifyToken, async (req, res) => {
 })
 
 
-router.post("/", (req, res) => {
-  res.send("This is a response from the post hello route")
+router.post("/", verifyToken, async (req, res) => {
+  try {
+    const todo = new Todo ({...req.body, userID : req.user._id})
+    await todo.save()
+    res.status(201).send(todo)
+  } catch ({ message }) { res.status(400).send({message}) }
+
 })
 
-router.put("/:id", (req,res) => {
+router.put("/:id", verifyToken, (req,res) => {
   res.send("Hello you put something here")
 })
 
 
-router.delete("/:id", (req, res) => {
+router.delete("/:id", verifyToken, (req, res) => {
   res.send("Hi! You tried to delete something")
 })
 
-router.delete("/me", (req, res) => {
+router.delete("/me", verifyToken, (req, res) => {
   res.send(todos)
 })
 
