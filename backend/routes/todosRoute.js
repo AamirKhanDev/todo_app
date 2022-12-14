@@ -26,15 +26,18 @@ router.put("/:id", verifyToken, verifyMyTodo, (req,res) => {
 })
 
 
-router.delete("/:id", verifyToken, verifyMyTodo, async (req, res) => {
+router.delete("/me", verifyToken, async (req, res) => {
   try {
-    await Todo.deleteMany({ userID: req.user_id})
-    res.send()
-  } catch ({ message }) { res.status(400).send({message}) }
+      await Todo.deleteMany({ userID : req.user._id})
+      res.send()
+  } catch ({ message }) { res.status(400).send({message}) } 
 })
 
-router.delete("/me", verifyToken, (req, res) => {
-  res.send(todos)
+router.delete("/:id", verifyToken, verifyMyTodo, async (req, res) => {
+  try {
+      await req.todo.remove()
+      res.send()
+  } catch ({ message }) { res.status(400).send({message}) }
 })
 
 
