@@ -6,7 +6,7 @@ require ("dotenv").config({path: "./backend/config.env"})
 const connectDB = require("./scripts/connectDB")
 const getProdDetails = require("./scripts/getProdDetails")
 const [PORT, isInProduction] = getProdDetails(5000)
-const delay = require("./middewares/delay")
+const delay = require("./middlewares/delay")
 
 app.use(express.json())
 

@@ -3,7 +3,7 @@ const User = require("../models/User")
 const router = express.Router()
 const {isEmail} = require("validator")
 const {genSaltSync, hashSync, compareSync} = require("bcryptjs")
-const verifyToken = require("../middewares/verifyToken")
+const verifyToken = require("../middlewares/verifyToken")
 const createAuthResObj = require("../scripts/createAuthResObj")
 
 
