@@ -21,8 +21,12 @@ router.post("/", verifyToken, async (req, res) => {
 
 })
 
-router.put("/:id", verifyToken, verifyMyTodo, (req,res) => {
-  res.send("You updated a todo" + req.params.id)
+router.put("/:id", verifyToken, verifyMyTodo, async (req, res) => {
+  try {
+      ["isComplete", "text"].forEach((prop) => req.todo[prop] = req.body[prop])
+      const updated = await req.todo.save()
+      res.send(updated)
+  } catch ({ message }) { res.status(404).send({message}) }
 })
 
 
