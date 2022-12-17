@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
 
-export const slice { reducer, actions } = createSlice ({
+export const { reducer, actions } = createSlice ({
   name: "users",
   initialState: {
     isLoading: false,
