@@ -1,5 +1,13 @@
-export default function Navbar () {
+export default function Navbar ({title}) {
     return (
-        <h1>I am the navbar</h1>
+        <nav className="navbar bg-dark px-5 py-2 border-bottom">
+            <div className="container-fluid">
+                <div className="d-flex align-items-center">
+                    <span className="navbar-brand text-white pointer me-0 fw-bold">
+                        {title}
+                    </span>
+                </div>
+            </div>
+        </nav>
     )
 }

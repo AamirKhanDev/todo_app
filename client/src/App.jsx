@@ -7,19 +7,12 @@ import Footer from './components/Footer'
 import { useSelector } from "react-redux"
 
 export default function App () {
-        const { todos } = useSelector(state => state.todos)
 
         return (
       <div className='wrapper bg-dark text-white'>
-            <Navbar />
+            <Navbar title ="Todo List"/>
         <div className='container'>
-
-            {todos.map((t) => {
-                return <h2 key={t.text}>{t.text} | {String(t.isComplete)}</h2>
-            })}
-            
-    
-
+             
             <Routes>
                 <Route path = "/" element = {<Home/>} />
                 <Route path = "/login" element = {<Login/>} />
