@@ -49,7 +49,7 @@ export default function Login () {
         </div>
         <span 
           onClick={()=> nav("/register")}
-          className="text-success my-3 h6 d-block text-center pointer">Register Here
+          className="text-success my-3 h6 d-block text-center pointer">Register here
           </span>
         <button type="submit" className="w-100 btn btn-success mt-3"> Login
         </button>         
