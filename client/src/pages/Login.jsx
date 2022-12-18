@@ -1,21 +1,23 @@
 import { useNavigate } from "react-router-dom"
 import { useState } from "react"
+import { useSelector} from "react-redux"
+import Overlay from "../components/Overlay"
 
 
 export default function Login () {
 
   const nav = useNavigate()
-
+  const { isLoading } = useSelector((state) => state.users)
   const [form, setForm] = useState ({email: "a@a.com", password: "123" })
 
-  const onFormChange = (e) => {
-    console.log("Form was changed")
+  const onFormChange = (e) => setForm({...form, [e.target.name] : e.target.value})
+
+  const submit = (e) => {
+    e.preventDefault()
+    console.log(form)
   }
 
-  const submit = () => {
-    alert ("Submitted")
-  }
-
+    if (isLoading) return <h1>Show Overlay Here</h1>
   return (
    <div className="row text-white pt-5">
     <div className="col-12 col-lg-6 mx-auto">
