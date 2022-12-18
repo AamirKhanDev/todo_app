@@ -4,7 +4,7 @@ export const { reducer, actions } = createSlice ({
   name: "users",
   initialState: {
     isLoading: false,
-    user: null
+    user: {email: "a@a.com"}
   },
   reducers: {
     logout () {

@@ -11,7 +11,7 @@ export default function App () {
         return (
       <div className='wrapper bg-dark text-white'>
             <Navbar title ="Todo List"/>
-        <div className='container'>
+            <div className='container'>
              
             <Routes>
                 <Route path = "/" element = {<Home/>} />
