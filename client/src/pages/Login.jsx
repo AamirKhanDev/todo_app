@@ -17,7 +17,7 @@ export default function Login () {
     console.log(form)
   }
 
-    if (isLoading) return <h1>Show Overlay Here</h1>
+    if (isLoading) return <Overlay text="Logging In"/>
   return (
    <div className="row text-white pt-5">
     <div className="col-12 col-lg-6 mx-auto">
