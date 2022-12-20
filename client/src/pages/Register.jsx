@@ -15,10 +15,11 @@ export default function Register () {
 
   const submit = (e) => {
     e.preventDefault()
+    dispatchEvent()
     console.log(form)
   }
 
-    if (isLoading) return <Overlay text="Logging In"/>
+    if (isLoading) return <Overlay text="Registering..."/>
   return (
    <div className="row text-white pt-5">
     <div className="col-12 col-lg-6 mx-auto">
