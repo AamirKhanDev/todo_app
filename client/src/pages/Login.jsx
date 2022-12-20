@@ -32,7 +32,7 @@ export default function Login () {
                                 name="email" 
                                 type="text" 
                                 className="form-control" 
-                                placeholder="john@gmail.com"
+                                placeholder="aamir@gmail.com"
                             />
                         </div>
                         <div className="col-12">
@@ -43,7 +43,7 @@ export default function Login () {
                                 name="password" 
                                 type="password" 
                                 className="form-control" 
-                                placeholder="smith123"
+                                placeholder="aamir123"
                             />
                         </div>
                     </div>
