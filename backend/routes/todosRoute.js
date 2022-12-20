@@ -2,6 +2,7 @@ const express = require("express")
 const router = express.Router()
 const verifyToken = require("../middlewares/verifyToken")
 const verifyMyTodo = require("../middlewares/verifyMyTodo")
+const Todo = require("../models/Todo")
 
 
 router.get("/me", verifyToken, async (req, res) => {

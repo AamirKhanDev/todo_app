@@ -11,15 +11,13 @@ export const thunks = {
   ))
 }
 
-const login = createAsyncThunk("")
-
 //Promise states : pending/fulfilled/rejected
 
 export const { reducer, actions } = createSlice ({
   name: "users",
   initialState: {
     isLoading: false,
-    user: {email: "a@a.com"}
+    user: window.localStorage.getItem("user")
   },
   reducers: {
     logout () {
