@@ -1,12 +1,16 @@
 import { useNavigate } from "react-router-dom"
 import { useState } from "react"
-import { useSelector} from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
 import Overlay from "../components/Overlay"
+import { thunks as userThunks} from "../global/slices/usersSlice"
+
+
 
 
 export default function Register () {
 
   const nav = useNavigate()
+  const dispatch = useDispatch()
   const { isLoading } = useSelector((state) => state.users)
 
   const [form, setForm] = useState ({email: "", password: "", confirm: ""})
@@ -15,7 +19,10 @@ export default function Register () {
 
   const submit = (e) => {
     e.preventDefault()
-    dispatchEvent()
+
+    const { confirm, ...rest} = form
+
+    dispatch(userThunks.register(rest))
     console.log(form)
   }
 
