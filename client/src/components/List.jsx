@@ -33,7 +33,7 @@ export default function List () {
                     <div>
                         <Icon 
                             onClick={() => funcs.updateTodoText(todo)} 
-                            type="pencil-square" 
+                            type="bi bi-pencil-square" 
                             color="warning" 
                             classes={["me-3"]} 
                         />
