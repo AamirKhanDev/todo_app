@@ -1,5 +1,7 @@
+const ms = require("ms")
+
 module.exports = function (seconds=1) {
-    return function delay (req, res, next) {
-    setTimeout(next, seconds * 1000)
-  }
+    return function delay (_, _, next) {
+        setTimeout(next, ms(`${seconds}s`))
+    }
 }

@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken")
 const User = require("../models/User")
 
-module.exports = async function verifyToken (req, res, next) {
+module.exports = async function (req, res, next) {
     try {
         const auth = req.headers.authorization
         const [name, token] = auth.trim().split(" ")
