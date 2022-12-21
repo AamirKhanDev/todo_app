@@ -3,20 +3,20 @@ import protectedRequest from "../../scripts/protectedRequest";
 import thunkPromiseHandler from "../../scripts/thunkPromiseHandler";
 
 export const thunks = {
-    fetchTodos : createAsyncThunk("todos/fetchTodos", async (_, T) => (
-        thunkPromiseHandler(protectedRequest().get("/api/todos/me"), T)
+    fetchTodos : createAsyncThunk("todos/fetchTodos", async (_, thunkAPI) => (
+        thunkPromiseHandler(protectedRequest().get("/api/todos/me"), thunkAPI)
     )),
-    createTodo : createAsyncThunk("todos/createTodo", async (todo, T) => (
-        thunkPromiseHandler(protectedRequest().post("/api/todos", todo), T)
+    createTodo : createAsyncThunk("todos/createTodo", async (todo, thunkAPI) => (
+        thunkPromiseHandler(protectedRequest().post("/api/todos", todo), thunkAPI)
     )),
-    updateTodo : createAsyncThunk("todos/updateTodo", async (todo, T) => (
-        thunkPromiseHandler(protectedRequest().put(`/api/todos/${todo._id}`, todo), T)
+    updateTodo : createAsyncThunk("todos/updateTodo", async (todo, thunkAPI) => (
+        thunkPromiseHandler(protectedRequest().put(`/api/todos/${todo._id}`, todo), thunkAPI)
     )),
-    deleteTodo : createAsyncThunk("todos/deleteTodo", async (todo, T) => (
-        thunkPromiseHandler(protectedRequest().delete(`/api/todos/${todo._id}`), T)
+    deleteTodo : createAsyncThunk("todos/deleteTodo", async (todo, thunkAPI) => (
+        thunkPromiseHandler(protectedRequest().delete(`/api/todos/${todo._id}`), thunkAPI)
     )),
-    deleteAll : createAsyncThunk("todos/deleteAll", async (_, T) => (
-        thunkPromiseHandler(protectedRequest().delete("/api/todos/me"), T)
+    deleteAll : createAsyncThunk("todos/deleteAll", async (_, thunkAPI) => (
+        thunkPromiseHandler(protectedRequest().delete("/api/todos/me"), thunkAPI)
     ))
 }
 
