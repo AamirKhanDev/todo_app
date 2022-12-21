@@ -1,39 +1,30 @@
 const express = require("express")
-const User = require("../models/User")
 const router = express.Router()
-const {isEmail} = require("validator")
-const {genSaltSync, hashSync, compareSync} = require("bcryptjs")
-const verifyToken = require("../middlewares/verifyToken")
+const User = require("../models/User")
+const { hashSync, genSaltSync, compareSync} = require('bcryptjs')
+const { isEmail } = require("validator")
 const createAuthResObj = require("../scripts/createAuthResObj")
 
-
-router.post("/register", async (req, res) => { 
+router.post("/register", async (req, res) => {
     try {
-      if (!isEmail(req.body.email)) throw new Error("Invalid Email entered")
-      const count = await User.count({email: req.body.email})
-      if (count) throw new Error ("Email is not unique!")
-      const user = new User(req.body)
-      if (user.password.length < 5) throw new Error("Password is too short")
-      //encrypt password then save
-      user.password = hashSync(user.password, genSaltSync(+process.env.SALT_ROUNDS));
-      //saves user registered
-      await user.save()
-      res.status(201).send(createAuthResObject(user))
-  }   catch ({message}) {  res.status(400).send({message})
-  }
-
+        if(!isEmail(req.body.email)) throw new Error("Invalid Email") // Validate Inputs
+        const count = await User.count({ email : req.body.email })// Check If User Already Exists
+        if (count) throw new Error("Email Is Not Unique")
+        const user = new User (req.body)// Create instance of User
+        user.password = hashSync(user.password, genSaltSync(+process.env.SALT_ROUNDS))// Hash the password
+        await user.save()// Save In DB
+        res.send(createAuthResObj(user))//Send back the jwt
+    } catch ({message}) { res.status(400).send({message}) }
 })
 
-router.post("/login", async (req, res) => { 
-  try {
-    const user = User.findOne({email: req.body.email})
-    if (!user) throw new Error ("No user found")
-
-    const passwordIsValid = compareSync(password, user.password)
-
-    res.send(user)
-  } catch ({message}) {  res.status(404).send({message})
-  }
+router.post("/login", async (req, res) => {
+    try {
+        const user = await User.findOne({ email : req.body.email })
+        if (!user) throw new Error ("No User Found")
+        const passwordIsValid = compareSync(req.body.password, user.password)
+        if (!passwordIsValid) throw new Error ("Invalid Password!")
+        res.send(createAuthResObj(user)) // Send back the jwt
+    } catch ({message}) { res.status(400).send({message}) }
 })
 
-module.exports = router 
+module.exports = router
