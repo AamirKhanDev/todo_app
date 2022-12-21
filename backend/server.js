@@ -7,7 +7,7 @@ const delay = require("./middlewares/delay")
 const connectDB = require("./scripts/connectDB")
 const setStatic = require("./scripts/setStatic")
 const getProdDetails = require("./scripts/getProdDetails")
-const [PORT, isInProduction] = getProdDetails(3001)
+const [PORT, isInProduction] = getProdDetails(3000)
 
 // Middleware
 app.use(express.json())
